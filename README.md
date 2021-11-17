@@ -30,7 +30,7 @@ Step 5:
  
  ==============================================================================
 
-  I have done TTP Callouts from LWC using Fetch API in Client-side controller(JS controller).
+  I have done HTTP Callouts from LWC using Fetch API in Client-side controller(JS controller).
   
   I have used modal-pop up to navigate from one pop up page to other.
   
