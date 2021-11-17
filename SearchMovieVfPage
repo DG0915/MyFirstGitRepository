@@ -1,0 +1,21 @@
+<apex:page showHeader="false" sidebar="false">
+
+    <apex:includeLightning />
+        <apex:includeScript value="/lightning/lightning.out.js" />
+    <div id="LightningComponentid" >   
+    <script>
+        
+         $Lightning.use("c:AuraDependancyAppForVFPage", function() {
+         $Lightning.createComponent("c:searchMovieLWC",
+             {},
+             "LightningComponentid",
+             function(cmp) {
+          console.log("Vfpage loaded successfully ");
+             }
+         );
+     });
+    
+    </script>
+    </div>
+    
+</apex:page>
