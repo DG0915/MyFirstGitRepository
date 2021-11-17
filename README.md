@@ -31,6 +31,8 @@ Step 5:
  ==============================================================================
 
   I have done TTP Callouts from LWC using Fetch API in Client-side controller(JS controller).
+  
   I have used modal-pop up to navigate from one pop up page to other.
+  
   I have imported createRecord method from Standard uiRecordAPI to commit movie information and related data to Salesforce.
   
