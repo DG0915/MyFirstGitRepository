@@ -1,0 +1,157 @@
+<template>
+    <lightning-card >
+        <div class="c-container" style="background-image: url(https://s.studiobinder.com/wp-content/uploads/2019/06/Best-M-Night-Shyamalan-Movies-and-Directing-Style-StudioBinder.jpg);height:400px;width: 1300px;">
+            <p class="slds-p-horizontal_small">Welcome to EazzyMovie</p>
+                    <lightning-layout  verticalalign="center" horizontalalign="spread" pulltoboundary="small">
+                        <lightning-layout-item  flexibility="auto" padding="around-small">
+                            <div class="slds-p-around_medium lgc-bg">
+                                <lightning-input type="text" value={movieStr} label="Enter Movie Name" placeholder="Search Movie here by title..." variant="label-hidden" onchange={movieNameChangeHandler} ></lightning-input>
+                            </div>
+                        </lightning-layout-item>
+                        <lightning-layout-item  flexibility="auto" padding="around-small">
+                        <div class="slds-p-around_medium lgc-bg">
+                            <lightning-button variant="brand" class="slds-m-left_x-small"  label="Search" title="Click and Search Movie"  onclick={searchHandler}></lightning-button>
+                        </div>
+                    </lightning-layout-item>
+                    </lightning-layout>           
+                </div>
+    </lightning-card>
+    
+    <template if:true={datafound}>
+        <lightning-card >
+            <div class="square">
+                <lightning-layout  horizontalalign="spread" pulltoboundary="small">
+                    <lightning-layout-item  flexibility="auto" >
+                        <div class="slds-p-around_medium lgc-bg" style="text-align:center;">
+                            <lightning-input type="radio" onclick={radioButtonClickHandher} ></lightning-input>
+                            <h1 style="text-align:center;">{showval.Title}</h1>
+                        </div>
+                    </lightning-layout-item>
+                    <!--<lightning-layout-item  flexibility="auto" >
+                        <div class="slds-p-around_medium lgc-bg" >
+                            <h1 style="text-align:left;">{showval.Title}</h1>
+                        </div>
+                    </lightning-layout-item>-->
+                </lightning-layout>
+            </div>
+            <div class="slds-grid slds-gutters" style="background: floralwhite;">
+            <div class="slds-col">
+                <span>
+                    <ul>
+                        <li>Year       : {showval.Year}<br /></li>
+                        <li>Genre      : {showval.Genre}<br /></li>
+                        <li>Languages  : {showval.Languages}<br /></li>
+                        <li>Awards     : {showval.Awards}<br /></li>
+                        <li>Writer     : {showval.Writer}<br /></li>
+                        <li>Actors     : {showval.Actors}<br /></li>
+                    </ul>
+                </span>
+            </div>
+            <div class="slds-col">
+                <span>
+                    <template if:true={backupimg}>
+                        <img src="https://s.studiobinder.com/wp-content/uploads/2019/06/Best-M-Night-Shyamalan-Movies-and-Directing-Style-StudioBinder.jpg" style="float:right;height: 200px;width: 200px;"/>
+                    </template>
+                        <template if:false={backupimg}>
+                            <img src={showval.Poster} style="float:right;height: 200px;width: 200px;" />
+                        </template>
+                    </span>
+                </div>
+            </div>
+        </lightning-card>
+    </template>
+
+
+    <template if:true={nodata}>
+        <lightning-card title="Movie Not Found. Please Check Spelling"></lightning-card>
+    </template>
+
+
+
+    <div>
+        <template if:true={isButtonClick}>
+            <lightning-layout  verticalalign="center" horizontalalign="spread" pulltoboundary="small">
+                <lightning-layout-item  flexibility="auto" padding="around-small">
+                    <div class="slds-p-around_medium lgc-bg">
+                        <lightning-button variant="brand"   label="Next" title="Click Next"  class="slds-align_absolute-center" onclick={openModal}  ></lightning-button>
+                    </div>
+                </lightning-layout-item>
+            </lightning-layout>
+        </template>
+    </div>
+
+
+    <template if:true={isModalOpen}>
+        
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse" size="small" ></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Contact Information</h2>
+                </header>
+                
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+
+				<lightning-layout  verticalalign="center" horizontalalign="spread" pulltoboundary="small">
+					<lightning-layout-item  flexibility="auto" padding="around-small">
+                        <div class="slds-p-around_medium lgc-bg">
+                            <lightning-input type="text" label="Enter Name" required value={userName} onchange={nameChangeHandler}></lightning-input>
+                            <lightning-input type="email" label="Enter Email address"  required value={userEmail} onchange={emailChangeHandler}></lightning-input>
+                            <lightning-input type="tel" label="Enter Phone Number" name="phone2" required value={userPhone} onchange={phoneChangeHandler}></lightning-input>
+                            <lightning-input type="date"  label="Enter a movie watching date" required value={movieDate} onchange={dateChangeHandler}></lightning-input>
+                        </div>
+					</lightning-layout-item>
+					
+				</lightning-layout>           
+
+                </div>
+               
+                <footer class="slds-modal__footer">
+					
+					<lightning-button variant="brand" class="slds-m-left_x-small"  label="Next" title="Click Next" onclick={submitDetails} ></lightning-button>
+					<lightning-button variant="neutral" class="slds-m-left_x-small"  label="Cancel" title="Cancel" onclick={closeModal} ></lightning-button>
+
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+    <template if:true={isSubmit}>
+        
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+               
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse" size="small" ></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-02" class="slds-text-heading_medium slds-hyphenate">Send us Feedback about Movie </h2>
+                </header>
+                
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-2">
+
+					<lightning-layout  verticalalign="center" horizontalalign="spread" pulltoboundary="small">
+						<lightning-layout-item  flexibility="auto" padding="around-small">
+								<div class="slds-p-around_medium lgc-bg">
+									<lightning-combobox label="Rating"	value={ratingScore} placeholder="Select Rating" options={options}	onchange={ratingChangeHandler} ></lightning-combobox>
+                                    <lightning-input-rich-text value={strFeedback} onchange={feedbackChangeHandler} label="Feedback"></lightning-input-rich-text>
+								</div>
+						</lightning-layout-item>
+					</lightning-layout>           
+				</div>
+                
+                <footer class="slds-modal__footer">
+				<lightning-button variant="brand" class="slds-m-left_x-small" value={} label="Submit" title="Click Submit" onclick={createMovieRecordHandler} ></lightning-button>
+				<lightning-button variant="neutral" class="slds-m-left_x-small"  label="Cancel" title="Cancel" onclick={closeModal} ></lightning-button>
+
+                </footer>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+
+</template>
