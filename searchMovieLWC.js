@@ -33,7 +33,7 @@ export default class SearchMovieLWC extends LightningElement {
     movieId;
     moviename;
        
-    //Making Callout using fetch. Learn more about fetch using the link provided in post
+    //Making Callout using fetch. 
     searchHandler() {
         fetch(this.urltocall)
             .then((response) => {
@@ -102,7 +102,6 @@ export default class SearchMovieLWC extends LightningElement {
     }
     submitDetails() {
         // to close modal set isModalOpen tarck value as false
-        //Add your code to call apex method or do some processing
         this.isModalOpen = false;
         this.isSubmit = true;
     }
@@ -138,7 +137,7 @@ export default class SearchMovieLWC extends LightningElement {
         fields[MOVIEDATE_FIELD.fieldApiName] = this.movieDate;
         fields[FEEDBACK_FIELD.fieldApiName] = this.strFeedback;
         fields[RATING_FIELD.fieldApiName] = this.ratingScore;
-        console.log('movie name111111================>'+this.moviename);
+        
 
         console.log('Fields:' +JSON.stringify(fields));
  
